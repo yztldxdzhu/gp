@@ -1,0 +1,117 @@
+.category{
+    width: 88%;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 16px;
+}
+
+
+.category_each_last{
+    background-color: #e3e3e3;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+}
+.category_each_last>span{
+    display: inline-block;
+    padding: 3px 0;
+    margin: 3px;
+    font-weight: 800;
+}
+.category_each_last li{
+    padding: 3px 12px 3px 12px;
+    cursor: pointer;
+}
+.category_each_last li:hover{
+    color: yellow;
+}
+.search_text{
+    background-color: transparent;
+    width: 10px;
+    padding: 0 20px;
+    line-height: 22px;
+    border: none;
+    /*border: 1px solid #ffffff;*/
+    outline: none;
+    vertical-align: middle;
+    border-radius: 15px;
+    transition: all 0.5s;
+}
+.search_text:focus{
+    width: 150px;
+    border: 1px solid #000;
+}
+.search_btn{
+    width: 20px;
+    height: 19px;
+    margin: 2px 0 0 -25px;
+    padding: 0;
+    background: url('../../images/allderIcon1.png');
+    border: none;
+    outline: none;
+    vertical-align: middle;
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+
+.banner_ask{
+    margin: 10px;
+    border-bottom: 2px solid yellow;
+}
+.banner_ask:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.new_ques{
+    float: left;
+    padding: 10px;
+    background-color: yellow;
+    cursor: pointer;
+}
+.me_ask{
+    float: right;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+.all_ques{
+    margin: 10px;
+}
+.ques_each{
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px dotted #cccccc;
+}
+.ques_each:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.ques_each p{
+    line-height: 22px;
+}
+.ques_ask{
+    /*float: left;*/
+}
+.ques_reply{
+    float: right;
+    width: 52%;
+    margin-bottom: 10px;
+}
+.ask_detail{
+    background-color: yellow;
+    width: 40%;
+    padding: 10px;
+}
+.reply_detail{
+    background-color: #cccccc;
+    padding: 10px;
+}

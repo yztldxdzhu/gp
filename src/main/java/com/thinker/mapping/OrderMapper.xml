@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.OrderMapper" >
+<resultMap id="BaseResultMap" type="com.thinker.domain.Order" >
+  <id column="order_id" property="orderId" jdbcType="INTEGER" />
+  <result column="user_id" property="userId" jdbcType="INTEGER" />
+  <result column="address_id" property="addressId" jdbcType="INTEGER" />
+  <result column="order_total" property="orderTotal" jdbcType="INTEGER" />
+  <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+  <result column="orders_number" property="ordersNumber" jdbcType="VARCHAR" />
+  <collection property="orderitemList" ofType="com.thinker.domain.Orderitem">
+    <id column="orderitem_id" property="orderitemId" jdbcType="INTEGER" />
+    <result column="orderitem_subtotal" property="orderitemSubtotal" jdbcType="INTEGER" />
+    <result column="orderitem_count" property="orderitemCount" jdbcType="INTEGER" />
+    <result column="orderitem_status" property="orderitemStatus" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="orders_number" property="ordersNumber" jdbcType="VARCHAR" />
+    <collection property="goods" ofType="com.thinker.domain.Goods">
+      <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+      <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+      <result column="goods_price" property="goodsPrice" jdbcType="VARCHAR" />
+      <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+      <result column="goods_target" property="goodsTarget" jdbcType="VARCHAR" />
+      <result column="goods_time" property="goodsTime" jdbcType="TIMESTAMP" />
+      <result column="goods_picture" property="goodsPicture" jdbcType="VARCHAR" />
+      <result column="goods_introduction" property="goodsIntroduction" jdbcType="LONGVARCHAR" />
+      <result column="goods_successcount" property="goodsSuccesscount" jdbcType="INTEGER" />
+      <result column="goods_status" property="goodsStatus" jdbcType="INTEGER" />
+    </collection>
+  </collection>
+</resultMap>
+  <resultMap id="BaseResultMap1" type="com.thinker.domain.Orderitem" >
+    <id column="orderitem_id" property="orderitemId" jdbcType="INTEGER" />
+    <result column="orderitem_subtotal" property="orderitemSubtotal" jdbcType="INTEGER" />
+    <result column="orderitem_count" property="orderitemCount" jdbcType="INTEGER" />
+    <result column="orderitem_status" property="orderitemStatus" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="orders_number" property="ordersNumber" jdbcType="VARCHAR" />
+    <collection property="order" ofType="com.thinker.domain.Order">
+      <id column="order_id" property="orderId" jdbcType="INTEGER" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="address_id" property="addressId" jdbcType="INTEGER" />
+      <result column="order_total" property="orderTotal" jdbcType="INTEGER" />
+      <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+      <result column="orders_number" property="ordersNumber" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="goods" ofType="com.thinker.domain.Goods">
+      <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+      <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+      <result column="goods_price" property="goodsPrice" jdbcType="VARCHAR" />
+      <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+      <result column="goods_target" property="goodsTarget" jdbcType="VARCHAR" />
+      <result column="goods_time" property="goodsTime" jdbcType="TIMESTAMP" />
+      <result column="goods_picture" property="goodsPicture" jdbcType="VARCHAR" />
+      <result column="goods_introduction" property="goodsIntroduction" jdbcType="LONGVARCHAR" />
+      <result column="goods_successcount" property="goodsSuccesscount" jdbcType="INTEGER" />
+      <result column="goods_status" property="goodsStatus" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+
+<insert id="insertOrder" parameterType="com.thinker.domain.Order" >
+  insert into orders (user_id, address_id,order_time,order_total,orders_number)
+  values (#{userId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, #{orderTotal,jdbcType=INTEGER}, #{ordersNumber,jdbcType=VARCHAR})
+</insert>
+
+  <insert id="insertOrderitem" parameterType="com.thinker.domain.Orderitem" >
+  insert into orderitem (orderitem_subtotal, goods_id,orders_number,orderitem_count,orderitem_status)
+  values (#{orderitemSubtotal,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{ordersNumber,jdbcType=VARCHAR}, #{orderitemCount,jdbcType=INTEGER}, #{orderitemStatus,jdbcType=INTEGER})
+</insert>
+
+<select id="selectAllOrderByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  select orderitem.*,orders.*,goods.*  from orders,orderitem,goods where orders.user_id = #{userId,jdbcType=INTEGER} and orders.orders_number = orderitem.orders_number and orderitem.goods_id = goods.goods_id
+  order by orders.order_time DESC
+</select>
+
+  <select id="selectAllOrderByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  select orderitem.*,orders.*,goods.*  from orders,orderitem,goods where orders.user_id = #{userId,jdbcType=INTEGER} and orders.orders_number = orderitem.orders_number and orderitem.goods_id = goods.goods_id
+  and orderitem.orderitem_status = #{status,jdbcType=INTEGER}
+  order by orders.order_time DESC
+</select>
+
+<select id="selectOrderitemByOrderitemId" resultMap="BaseResultMap1" parameterType="java.lang.Integer" >
+  select orderitem.*,orders.*,goods.* from orders,orderitem,goods where orderitem.orderitem_id = #{orderitemId,jdbcType=INTEGER} and orderitem.orders_number = orders.orders_number and orderitem.goods_id = goods.goods_id
+</select>
+
+  <select id="selectOrderitemByGoodsId" resultMap="BaseResultMap1" parameterType="java.lang.Integer" >
+  select orderitem.* from orderitem where orderitem.goods_id = #{goodsId,jdbcType=INTEGER}
+</select>
+
+  <select id="selectOrderitemByOrderId" resultMap="BaseResultMap1" parameterType="java.lang.Integer" >
+  select orderitem.* from orderitem,orders where orderitem.orders_number = orders.orders_number and orders.order_id = #{ordersId,jdbcType=INTEGER}
+</select>
+
+  <update id="updateOrderitemStatus" parameterType="java.lang.Integer">
+    update orderitem set orderitem_status = #{orderitemStatus,jdbcType=INTEGER} where orderitem_id = #{orderitemId,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteCancelOrder" >
+    delete from orderitem where orderitem_status = 5
+  </delete>
+</mapper>

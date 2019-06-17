@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.ScoreMapper">
+
+    <insert id="addScore" parameterType="com.thinker.domain.Score">
+        INSERT  INTO  score (score_service,score_major,score_servicetime,score_all,goods_id,user_id)
+         VALUES (#{scoreService},#{scoreMajor},#{scoreServiceTime},#{scoreAll},#{goodsId},#{userId})
+    </insert>
+
+</mapper>

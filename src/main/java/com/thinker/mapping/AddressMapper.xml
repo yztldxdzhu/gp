@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.AddressMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.Address" >
+    <id column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="address_area" property="addressArea" jdbcType="VARCHAR" />
+    <result column="address_detail" property="addressDetail" jdbcType="VARCHAR" />
+    <result column="address_postcode" property="addressPostcode" jdbcType="VARCHAR" />
+    <result column="address_receivingname" property="addressReceivingname" jdbcType="VARCHAR" />
+    <result column="address_phone" property="addressPhone" jdbcType="VARCHAR" />
+    <result column="address_isdefault" property="addressIsdefault" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <delete id="deleteAddressByAddressId" parameterType="java.lang.Integer" >
+    delete from address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertAddress" parameterType="com.thinker.domain.Address" >
+    insert into address (address_area, address_detail,address_postcode,address_receivingname,address_phone,address_isdefault,user_id)
+    values (#{addressArea,jdbcType=VARCHAR}, #{addressDetail,jdbcType=VARCHAR}, #{addressPostcode,jdbcType=VARCHAR}, #{addressReceivingname,jdbcType=VARCHAR}, #{addressPhone,jdbcType=VARCHAR}, #{addressIsdefault,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateAddress" parameterType="com.thinker.domain.Address" >
+    update address
+    set address_area = #{addressArea,jdbcType=VARCHAR},
+      address_detail = #{addressDetail,jdbcType=VARCHAR},
+      address_postcode = #{addressPostcode,jdbcType=VARCHAR},
+      address_receivingname = #{addressReceivingname,jdbcType=VARCHAR},
+      address_phone = #{addressPhone,jdbcType=VARCHAR},
+      address_isdefault = #{addressIsdefault,jdbcType=INTEGER}
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllAddressByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from address where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAddressBYAddressId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from address where address_id = #{addressId,jdbcType=INTEGER}
+  </select>
+</mapper>

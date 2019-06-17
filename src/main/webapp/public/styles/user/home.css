@@ -1,0 +1,239 @@
+.apply_banner{
+    font-size: 0;
+    margin-top: 145px;
+}
+
+
+
+.success_case{
+    box-sizing: border-box;
+    margin-top: 1rem;
+    width: 72%;
+    display: inline-block;
+    padding: 15px;
+    /*background-color: #fff;*/
+}
+.success_case_title{
+
+}
+.success_case>a{
+    float: right;
+    margin-top: 2rem;
+}
+
+
+.success_case_each{
+    display: inline-block;
+    width: 22%;
+    height: 100%;
+    margin: 1% 0 1% 2.7%;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+}
+.success_case_each:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.success_case_each img{
+    float: left;
+    width: 100%;
+}
+.success_case_each>a{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.success_case_mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 11px;
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    background-color: rgba(0,0,0,0);
+    transition: ease-in 0.3s;
+}
+.success_case_mask:hover{
+    opacity: 1;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.success_case_mask_name{
+    font-size: 16px;
+    width: 80%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+.success_case_mask_school{
+    padding: 8px 0 0 8px;
+}
+.success_case_mask_speak{
+    padding: 8px 0 0 8px;
+}
+.success_case_mask_locate{
+    padding: 8px 8px 0 0;
+    float: right;
+}
+.success_case_mask span{
+    color: #fff;
+    display: block;
+    opacity: 1;
+}
+
+
+.questions{
+    width: 21%;
+    padding: 1rem;
+    margin: 1rem 1rem 0 0;
+    float: right;
+    display: inline-block;
+    background-color: #ffffff;
+}
+.questions_title{
+
+}
+.questions>a{
+    float: right;
+    margin-top: 2rem;
+}
+.questions_some_each{
+    border-top: 1px solid #ccc;
+    padding: 8px 0;
+}
+.questions_some_each:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.questions_some_each>p{
+    line-height: 16px;
+}
+.questions_some_each>span{
+    float: right;
+    font-size: 11px;
+    color: #999;
+}
+
+
+
+
+.mall_goods,.college_sort{
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 1rem 0;
+    /*background-color: #fff;*/
+    padding: 1rem;
+}
+.mall_goods_title,.college_sort_title{
+
+}
+.mall_goods>a,.college_sort>a{
+    float: right;
+    margin-top: 2rem;
+}
+.mall_goods_some,.college_sort_some{
+
+}
+.mall_goods_each,.college_sort_each{
+    position: relative;
+    display: inline-block;
+    width: 18%;
+    height: 100%;
+    margin: 1% 0 1% 1.8%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+.mall_goods_each>p,.college_sort_each>p{
+    width: 100%;
+    overflow: hidden;
+}
+.mall_goods_each{
+    box-shadow: 2px 2px 2px #ccc;
+    overflow: hidden;
+}
+.college_sort_each{
+    box-shadow: 0px 0px 5px #ccc;
+    overflow: hidden;
+}
+.mall_goods_each img,.college_sort_each img{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    transition: ease-in 0.5s;
+}
+.mall_goods_each img:hover,.college_sort_each img:hover{
+    transform: scale(1.1);
+}
+.mall_goods_each_desc,.college_sort_each_desc{
+    font-size: 13px;
+}
+.mall_goods_each_name,.college_sort_each_name{
+    display: block;
+    color: #333!important;
+    padding: 10px;
+    font-weight: 700;
+}
+/*.mall_goods_each_name{
+    height: 34px;
+}
+.college_sort_each_name{
+    height: 17px;
+}*/
+.price{
+
+}
+.new_price{
+    font-size: 16px;
+    color: #a22020;
+    font-weight: bold;
+    margin-left: 12px;
+}
+.old_price{
+    font-size: 12px;
+    margin-left: 12px;
+    text-decoration: line-through;
+}
+.add_to_car{
+    text-align: center;
+    background-color: yellow;
+    width: 50%;
+    margin: 5% auto;
+    padding: 3%;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+.add_to_car:hover{
+    box-shadow: 0 0 10px #ccc inset;
+    background-color: #a22020
+}
+.add_to_car:active{
+    box-shadow: 0 0 5px #a22020;
+}
+
+
+.college_sort_each_desc p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ccc;
+    text-align: center;
+    line-height: 180%;
+}
+.college_sort_each_name_en{
+    font-size: 10px;
+}
+.college_sort_each_locate{
+    font-size: 11px;
+}

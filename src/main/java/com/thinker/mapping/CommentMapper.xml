@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.thinker.domain.Comment" >
+        <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+        <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <insert id="insertComment">
+        INSERT INTO comment(comment_content,user_id,goods_id) VALUES (#{commentContent},#{userId},#{goodsId})
+    </insert>
+
+    <delete id="deleteComment">
+        DELETE FROM comment WHERE comment_id=#{commentId}
+    </delete>
+
+    <select id="selectAllCommentByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from comment where goods_id = #{goodsId,jdbcType=INTEGER}
+    </select>
+</mapper>

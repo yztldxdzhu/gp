@@ -1,0 +1,120 @@
+.evaluating_body{
+    width: 80%;
+    margin: 1% auto;
+}
+
+.evaluating_alert{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 2%;
+    background-color: #333333;
+    color: #ffffff;
+}
+.evaluating_alert>p{
+    padding: 1% 0;
+}
+.evaluating_alert a{
+    color: yellow!important;
+}
+
+
+.evaluating_info{
+    margin: 1% 0;
+    border: 1px solid #cccccc;
+}
+.evaluating_form{
+    background-color: #fff;
+    padding: 1% 5%;
+}
+.evaluating_label{
+    width: 11%;
+    text-align: right;
+    margin: 1%;
+    line-height: 340%;
+    display: inline-block;
+}
+
+.evaluating_base{
+    width: 32%;
+    text-align: center;
+    padding: 1.5%;
+    margin: 1.7% 0;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.evaluating_form>input:focus{
+    box-shadow: 0 0 10px yellow;
+}
+
+
+
+.evaluating_now_education{
+    composes: evaluating_base;
+}
+.evaluating_now_school{
+    composes: evaluating_base;
+}
+.evaluating_now_college{
+    composes: evaluating_base;
+}
+.evaluating_now_major{
+    composes: evaluating_base;
+}
+.evaluating_gpa{
+    composes: evaluating_base;
+}
+.evaluating_avg_grade{
+    composes: evaluating_base;
+}
+.evaluating_target{
+    composes: evaluating_base;
+}
+.evaluating_target_school{
+    composes: evaluating_base;
+}
+.evaluating_target_college{
+    composes: evaluating_base;
+}
+.evaluating_target_major{
+    composes: evaluating_base;
+}
+.evaluating_target_loc{
+    composes: evaluating_base;
+}
+.evaluating_time{
+    composes: evaluating_base;
+}
+.evaluating_phone{
+    composes: evaluating_base;
+}
+.evaluating_validate{
+    composes: evaluating_base;
+    width: 20%;
+}
+.evaluating_getvali{
+    width: 11%;
+    display: inline-block;
+    text-align: center;
+    padding: 1.4% 0;
+    margin: 1.7% 0 0 1%;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+.evaluating_getvali:hover{
+    background-color: yellow;
+}
+.evaluating_getvali:active{
+    background-color: yellow;
+    box-shadow: 0 0 10px yellow;
+}
+.evaluating_btn_label{
+    composes: evaluating_label;
+    visibility: hidden;
+}
+.evaluating_btn{
+    composes: evaluating_base;
+    background-color: yellow;
+    width: 35%;
+}

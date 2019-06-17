@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.Goods" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="goods_target" property="goodsTarget" jdbcType="VARCHAR" />
+    <result column="goods_time" property="goodsTime" jdbcType="TIMESTAMP" />
+    <result column="goods_picture" property="goodsPicture" jdbcType="VARCHAR" />
+    <result column="goods_introduction" property="goodsIntroduction" jdbcType="LONGVARCHAR" />
+    <result column="goods_successcount" property="goodsSuccesscount" jdbcType="INTEGER" />
+    <result column="goods_status" property="goodsStatus" jdbcType="INTEGER" />
+    <result column="goods_stock" property="goodsStock" jdbcType="INTEGER" />
+    <collection property="commentList" ofType="com.thinker.domain.Comment">
+      <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+      <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    </collection>
+    <collection property="scoreList" ofType="com.thinker.domain.Score">
+      <id column="score_id" property="scoreId" jdbcType="INTEGER" />
+      <result column="score_service" property="scoreService" jdbcType="DOUBLE" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+      <result column="score_major" property="scoreMajor" jdbcType="DOUBLE" />
+      <result column="score_serviceTime" property="scoreServiceTime" jdbcType="DOUBLE" />
+      <result column="score_all" property="scoreAll" jdbcType="DOUBLE" />
+    </collection>
+  </resultMap>
+
+  <delete id="deleteGoodsByGoodsId" parameterType="java.lang.Integer" >
+    delete from goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteBatchGoods" parameterType="java.util.List" >
+    delete from goods
+    where goods_id in (
+    <foreach collection="list" index="index" item="item" separator=",">
+      #{item}
+    </foreach>
+    )
+  </delete>
+
+  <update id="updateGoodsStatusByGoodsId" parameterType="java.lang.Integer" >
+    update goods
+    set
+      goods_status = #{goodsStatus,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateGoodsSuccesscount" parameterType="java.lang.Integer" >
+    update goods
+    set
+      goods_successcount = #{goodsSuccesscount,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateGoodsStock" parameterType="java.lang.Integer" >
+    update goods
+    set
+      goods_stock = #{goodsStock,jdbcType=INTEGER}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateGoods" parameterType="com.thinker.domain.Goods" >
+    update goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=VARCHAR},
+      goods_target = #{goodsTarget,jdbcType=VARCHAR},
+      goods_time = #{goodsTime,jdbcType=TIMESTAMP},
+      goods_picture = #{goodsPicture,jdbcType=VARCHAR},
+      goods_introduction = #{goodsIntroduction,jdbcType=LONGVARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllGoods" resultMap="BaseResultMap" >
+    select * from goods order by goods_time DESC
+  </select>
+
+  <select id="selectAllGoodsByGoodsType" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from goods where goods_type = #{goodsType,jdbcType=VARCHAR} order by goods_time DESC
+  </select>
+
+  <select id="selectGoodsBYGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select goods.*,AVG (score.score_service) as score_service,AVG (score.score_major) as score_major,AVG (score.score_servicetime) as score_servicetime,AVG (score.score_all) as score_all from goods,score where goods.goods_id = #{goodsId,jdbcType=INTEGER} and score.goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectGoodsPriceByGoodsId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select goods_price from goods where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectGoodsStockByGoodsId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select goods_stock from goods where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectGoodsSuccesscountBYGoodsId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select goods_successcount from goods where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+</mapper>

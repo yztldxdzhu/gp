@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.ReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.Reply" >
+    <id column="reply_id" property="replyId" jdbcType="INTEGER" />
+    <result column="question_id" property="questionId" jdbcType="INTEGER" />
+    <result column="expert_id" property="expertId" jdbcType="INTEGER" />
+    <result column="reply_time" property="replyTime" jdbcType="DATE" />
+    <result column="reply_content" property="replyContent" jdbcType="LONGVARCHAR" />
+    <collection property="replyExpert" ofType="com.thinker.dto.ReplyExpert">
+      <id property="expertId" column="expert_id" jdbcType="INTEGER" />
+      <result column="expert_name" property="expertName" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+
+  <insert id="insert" >
+    insert into reply (question_id,expert_id,reply_time, reply_content)
+    values ( #{questionId,jdbcType=INTEGER}, #{expertId,jdbcType=INTEGER}, #{replyTime,jdbcType=DATE}, #{replyContent,jdbcType=LONGVARCHAR})
+  </insert>
+
+  <delete id="deleteByReplyId" parameterType="java.lang.Integer" >
+    delete from reply where reply_id = #{replyId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="showAllReplyByQuestion" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from reply  where question_id = #{questionId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectReplyByQuestionId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select reply.*,expert.expert_name from reply,expert  where reply.question_id = #{questionId,jdbcType=INTEGER} and reply.expert_id = expert.expert_id order by reply.reply_time DESC
+  </select>
+</mapper>

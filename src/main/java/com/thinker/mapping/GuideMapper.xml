@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.GuideMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.Guide" >
+    <id column="guide_id" property="guideId" jdbcType="INTEGER" />
+    <result column="guide_type" property="guideType" jdbcType="INTEGER" />
+    <result column="guide_content" property="guideContent" jdbcType="VARCHAR" />
+    <result column="guide_time" property="guideTime" jdbcType="DATE" />
+  </resultMap>
+
+  <select id="findGuideByType" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from guide
+    where guide_type = #{guideType,jdbcType=INTEGER}
+  </select>
+
+  <insert id="addGuide" parameterType="com.thinker.domain.Guide">
+    INSERT  INTO  guide (guide_type,guide_content,guide_time)
+    VALUES (#{guideType},#{guideContent},#{guideTime})
+  </insert>
+
+  <select id="findAllGuide" resultMap="BaseResultMap">
+    select * from guide
+  </select>
+
+  <delete id="deleteGuideById" parameterType="java.lang.Integer" >
+    delete from guide
+    where guide_id = #{guideId,jdbcType=INTEGER}
+  </delete>
+
+</mapper>

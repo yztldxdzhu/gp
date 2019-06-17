@@ -1,0 +1,98 @@
+.login_header{
+    height: 20%;
+    line-height: 800%;
+}
+.login_header>a{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5%;
+}
+.login_header_img{
+    display: inline-block;
+    vertical-align: middle;
+}
+.login_header_title{
+    display: inline-block;
+    margin-left: 2%;
+    font-size: 16px;
+    font-weight: 600;
+}
+.login_header_title a{
+    text-decoration: none;
+}
+
+
+
+.login_body{
+    min-width: 380px;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    margin-left: -20%;
+    /*margin-top: -5%;*/
+    background-color: rgba(255, 255, 255, 0.69);
+    padding: 1%;
+    box-shadow: 0px 0px 50px rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.login_body_hover{
+    float: right;
+    cursor: pointer;
+    color: yellow;
+}
+.login_body_title{
+    text-align: center;
+}
+.login_body_form{
+
+}
+.login_body_base{
+    display: block;
+    text-align: center;
+    padding: 2% 2%;
+    width: 50%;
+    margin: 1% auto;
+    border: 2px solid #b5dbec;
+    border-radius: 5px;
+}
+.login_body_user_type{
+    background-color: #ffffff;
+    composes: login_body_base
+}
+.user_type{
+    margin: 0 15px;
+}
+.login_body_text{
+    composes: login_body_base
+}
+.login_body_pwd{
+    composes: login_body_base
+}
+.login_body_btn{
+    composes: login_body_base;
+    background-color: yellow;
+    width: 40%;
+    margin: 2% 0 2% 30%;
+}
+.login_body_toother{
+    font-size: 12px;
+    color: #333;
+    zoom: 1;
+}
+.login_body_toother:after{
+    clear:both;
+    content:'.';
+    display:block;
+    width: 0;
+    height: 0;
+    visibility:hidden;
+}
+.login_body_toregister{
+    float: left;
+    margin-left: 35%;
+}
+.login_body_tofindpwd{
+    float: right;
+    margin-right: 35%;
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.EvaluateMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.Evaluate" >
+    <id column="evaluate_id" property="evaluateId" jdbcType="INTEGER" />
+    <result column="evaluate_education" property="evaluateEducation" jdbcType="VARCHAR" />
+    <result column="evaluate_campus" property="evaluateCampus" jdbcType="VARCHAR" />
+    <result column="evaluate_college" property="evaluateCollege" jdbcType="VARCHAR" />
+    <result column="evaluate_major" property="evaluateMajor" jdbcType="VARCHAR" />
+    <result column="evaluate_gpa" property="evaluateGpa" jdbcType="INTEGER" />
+    <result column="evaluate_score" property="evaluateScore" jdbcType="INTEGER" />
+    <result column="evaluate_target" property="evaluateTarget" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <!--<resultMap id="EvaluateresultMap" type="com.thinker.domain.Evaluateresult">-->
+    <!--<id column="evaluateresult_id" property="evaluateresultId" jdbcType="INTEGER" />-->
+    <!--<result column="evaluate_id" property="evaluateId" jdbcType="INTEGER" />-->
+    <!--<result column="university_id" property="universityId" jdbcType="INTEGER" />-->
+  <!--</resultMap>-->
+
+  <select id="selectEvaluateByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from evaluate
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUniversityByUserId" resultMap="com.thinker.mapper.UniversityMapper.BaseResultMap" parameterType="java.lang.Integer" >
+    select university.* from evaluateresult,university,evaluate
+    where evaluate.user_id = #{userId,jdbcType=INTEGER} and evaluateresult.university_id = university.university_id and evaluateresult.evaluate_id = evaluate.evaluate_id
+  </select>
+
+  <select id="selectUniversityIdByCollegeAndMajor" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    (SELECT universitymajor.university_id FROM universitymajor,college WHERE college.college_name = #{collegeContent,jdbcType=VARCHAR} and college.college_id = universitymajor.college_id ) UNION
+    (SELECT universitymajor.university_id FROM universitymajor,major WHERE major.major_name = #{majorContent,jdbcType=VARCHAR} AND  major.major_id = universitymajor.major_id)
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from evaluate
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertEvaluate" parameterType="com.thinker.domain.Evaluate" >
+    insert into evaluate (evaluate_education, evaluate_campus, evaluate_college, evaluate_major,
+      evaluate_gpa, evaluate_score, evaluate_target, user_id)
+    values (#{evaluateEducation,jdbcType=VARCHAR}, #{evaluateCampus,jdbcType=VARCHAR}, #{evaluateCollege,jdbcType=VARCHAR}, #{evaluateMajor,jdbcType=VARCHAR},
+      #{evaluateGpa,jdbcType=DOUBLE}, #{evaluateScore,jdbcType=INTEGER}, #{evaluateTarget,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateEvaluate" parameterType="com.thinker.domain.Evaluate" >
+    update evaluate
+    set evaluate_education = #{evaluateEducation,jdbcType=VARCHAR},
+      evaluate_campus = #{evaluateCampus,jdbcType=VARCHAR},
+      evaluate_college = #{evaluateCollege,jdbcType=VARCHAR},
+      evaluate_major = #{evaluateMajor,jdbcType=VARCHAR},
+      evaluate_gpa = #{evaluateGpa,jdbcType=INTEGER},
+      evaluate_score = #{evaluateScore,jdbcType=INTEGER},
+      evaluate_target = #{evaluateTarget,jdbcType=VARCHAR}
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteEvaluateResultByEvaluateId" parameterType="java.lang.Integer" >
+    delete from evaluateresult
+    where evaluate_id = #{evaluateId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="addEvaluateresult" parameterType="com.thinker.domain.Evaluateresult" >
+    insert into evaluateresult (evaluate_id, university_id)
+    values (#{evaluateId,jdbcType=INTEGER}, #{universityId,jdbcType=INTEGER})
+  </insert>
+</mapper>

@@ -1,0 +1,140 @@
+.register_header{
+    height: 20%;
+    line-height: 800%;
+}
+.register_header>a{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5%;
+}
+.register_header_img{
+    display: inline-block;
+    vertical-align: middle;
+}
+.register_header_title{
+    display: inline-block;
+    margin-left: 2%;
+    font-size: 16px;
+    font-weight: 600;
+}
+.register_header_title a{
+    text-decoration: none;
+}
+
+
+
+.register_body_all{
+    min-width: 380px;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    margin-left: -20%;
+}
+.register_body_p{
+    display: inline-block;
+    width: 48%;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.69);
+    padding: 4%;
+    margin: 0 1%;
+    box-shadow: 0px 0px 50px rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+
+.register_body{
+    min-width: 380px;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    margin-left: -20%;
+    /*margin-top: -5%;*/
+    background-color: rgba(255, 255, 255, 0.69);
+    padding: 1%;
+    box-shadow: 0px 0px 50px rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.register_body_hover{
+    float: right;
+    cursor: pointer;
+    color: yellow;
+}
+.register_body_title{
+    text-align: center;
+}
+.register_body_form{
+
+}
+.register_body_label{
+    width: 22%;
+    text-align: right;
+    float: left;
+    margin-right: 2%;
+    line-height: 300%;
+}
+.register_body_base{
+    display: inline-block;
+    width: 60%;
+    text-align: center;
+    padding: 2%;
+    margin: 1%;
+    border: 2px solid #b5dbec;
+    border-radius: 5px;
+}
+.register_body_text{
+    composes: register_body_base
+}
+.register_body_select{
+    composes: register_body_base;
+    text-align: left;
+    background-color: #ffffff;
+}
+.register_body_tag_each{
+    margin: 0 12px;
+}
+.register_body_pwd{
+    composes: register_body_base
+}
+.register_body_validate{
+    composes: register_body_base;
+    width: 40%;
+    text-align: center;
+}
+.register_body_isexpert{
+    width: 100%;
+}
+.is_expert{
+    line-height: 300%;
+    margin: 0 20px;
+}
+.register_body_getvali{
+    position: absolute;
+    margin-left: 2%;
+    margin-top: 1.2%;
+    padding: 1.7%;
+    border: 2px solid #b5dbec;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.register_body_getvali:active{
+    box-shadow: 0 0 8px #b5dbec;
+}
+.register_body_btn{
+    composes: register_body_base;
+    width: 65%;
+    margin: 2% 0 2% 25%;
+    background-color: yellow;
+}
+.register_body_toother{
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+}
+.register_body_toother>a{
+    margin: 0 10px;
+}

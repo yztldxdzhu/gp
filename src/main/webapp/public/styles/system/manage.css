@@ -1,0 +1,348 @@
+.the_all{
+    background-color: #ffffff;
+}
+.the_right{
+    margin-left: 20%;
+    display: inline-block;
+    width: 70%;
+    padding: 20px;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+}
+.the_title{
+    padding: 7px 0;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+
+
+
+.the_modal{
+    float: right;
+    margin-right: 20px;
+}
+.the_modal_click{
+    border: 1px solid #ccc;
+    padding: 7px;
+    cursor: pointer;
+}
+.the_modal_click:hover{
+    background-color: yellow;
+}
+.the_modal_div{
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    background-color: antiquewhite;
+}
+.the_btn{
+    float: right;
+    font-weight: 600;
+    border: 1px solid #cccccc;
+    background-color: yellow;
+    padding: 8px;
+    cursor: pointer;
+}
+
+
+
+/*用户管理、顾问管理*/
+.the_right_ul>li{
+    display: inline-block;
+    width: 48%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin: 10px;
+}
+.expert_check_btn{
+    margin: 10px auto;
+    width: 50%;
+}
+.expert_check_btn>button{
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    width: 46%;
+}
+
+.the_each_head{
+    padding: 12px 0;
+    border-bottom: 2px solid #ccc;
+    font-weight: 700;
+}
+.the_each{
+    padding: 12px 0;
+    border-bottom: 1px dotted #ccc;
+    cursor: pointer;
+}
+.the_each:hover{
+    background-color: yellow;
+}
+.the_each_head li,.the_each li{
+    width: 25%;
+    text-align: center;
+    overflow: hidden;
+}
+.expert_status{
+    position: absolute;
+    background-color: #a22020;
+    margin-left: -4%;
+    margin-top: -6px;
+    color: #fff;
+    border-radius: 7px;
+    padding: 2px;
+}
+
+/*标签管理*/
+.the_each_tag{
+    display: inline-block;
+    border: 1px solid #cccccc;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.the_each_name{
+    line-height: 80px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.delete_tag{
+    position: absolute;
+    background-color: #a22020;
+    color: #ffffff;
+    margin-left: -2px;
+    margin-top: -22px;
+    border-radius: 50%;
+    padding: 4px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+.delete_tag>button{
+    border: none;
+    outline: none;
+    background-color: #a22020;
+    color: #ffffff;
+}
+.the_each_tag_last{
+    composes: the_each_tag;
+}
+.the_each_name_last{
+    composes: the_each_name;
+    opacity: 0;
+}
+.the_each_tag_last:before{
+    content: "";
+    display: block;
+    width: 10px;
+    height: 70px;
+    background-color: #cccccc;
+    position: absolute;
+    left: 35px;
+    top: 5px;
+}
+.the_each_tag_last:after{
+    content: "";
+    display: block;
+    width: 70px;
+    height: 10px;
+    background-color: #cccccc;
+    position: absolute;
+    left: 5px;
+    top: 35px;
+}
+.add_tag_form{
+    width: 25%;
+    margin: 20px auto;
+}
+.add_tag_input{
+    display: inline-block;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.add_tag_btn{
+    box-sizing: border-box;
+    padding: 15px 0;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/*申请管理*/
+.apply_condi{
+    border-bottom: 1px solid #ccc;
+}
+.apply_condi>li{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 10%;
+    padding: 14px 0;
+    text-align: center;
+    cursor: pointer;
+    border-left: 1px solid #ccc;
+}
+.apply_condi>li:hover{
+    background-color: #a22020;
+}
+.apply_condi>li:active{
+    box-shadow: 0 0 5px yellow;
+}
+.apply_check_form>button{
+    margin: 0 10px;
+    padding: 5px 8px;
+}
+
+
+/*学校管理*/
+.uni_each{
+    margin: 20px 0;
+    border-bottom: 1px solid #cccccc;
+}
+.uni_each>img{
+    vertical-align: middle;
+}
+.uni_each>span{
+    display: inline-block;
+    margin-left: 20px;
+}
+.school_detail>div{
+    text-indent: 32px;
+    line-height: 22px;
+}
+.school_name>a{
+    margin-left: 40px;
+    padding: 2px;
+    font-size: 12px;
+    background-color: #a22020;
+    color: #ffffff!important;
+}
+.college{
+    display: inline-block;
+    background-color: #ccc;
+    margin: 10px;
+    padding: 10px;
+}
+.major_all{
+    position: absolute;
+    margin-top: 35px;
+    margin-left: -4%;
+    line-height: 22px;
+}
+.school_upload,.goods_add{
+    margin-top: 20px;
+}
+.school_upload_form{
+    width: 300px;
+    margin: 20px auto;
+}
+.school_upload_form>button,.goods_add_form>button{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.scene_video{
+    margin: 15px auto;
+    width: 640px;
+    height: 480px;
+}
+.scene_video>video{
+    width: 100%;
+    height: 100%;
+}
+.scene_pics>img {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #cccccc;
+    margin: 10px;
+}
+.goods_add_form{
+    width: 500px;
+    margin: 20px auto;
+}
+.goods_add_form>input,.goods_add_form>select,.goods_add_form>textarea{
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 4%;
+    margin: 4% 0;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.goods_header>li{
+    width: 25%;
+    box-sizing: border-box;
+    padding: 14px 0;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    background-color: rgba(204, 204, 204, 0.45);
+}
+.goods_header input[type="checkbox"]{
+    margin-right: 40%;
+}
+.goods_each{
+    border-bottom: 1px solid #ccc;
+}
+.goods_each:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.goods_each>li{
+    display: inline-block;
+    width: 25%;
+    box-sizing: border-box;
+    padding: 14px 0;
+    text-align: center;
+}
+.goods_each button{
+    width: 50px;
+    height: 25px;
+    margin: 0 5px;
+}
+.goods_each_img{
+    text-align: left!important;
+}
+.goods_each_img>input[type="checkbox"]{
+    float: left;
+    margin-left: 14%;
+    margin-top: 7%;
+}
+.goods_each_img>img{
+    float: left;
+    margin-left: 20%;
+}
+
+.second_condi{
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    padding: 10px 0;
+    background-color: rgba(204, 204, 204, 0.3);
+}
+.second_condi>li{
+    width: 8%;
+    text-align: center;
+    border-right: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.file_each{
+    padding: 8px;
+    border-bottom: 1px dotted #ccc;
+}
+.file_each>li{
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+}

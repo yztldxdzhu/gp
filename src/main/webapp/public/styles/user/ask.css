@@ -1,0 +1,60 @@
+.ask_body{
+    width: 80%;
+    margin: 1% auto;
+}
+.ask_alert{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 2%;
+    background-color: #333333;
+    color: #fff;
+}
+.ask_alert>p{
+    padding: 1% 0;
+}
+.ask_alert a{
+    color: yellow!important;
+    font-size: 13px;
+}
+
+.ask_info{
+    margin: 1% 0;
+    border: 1px solid #cccccc;
+    background-color: #fff;
+}
+.ask_form{
+    padding: 1% 5%;
+    width: 45%;
+    margin: 0 auto;
+    /*background-color: chartreuse;*/
+}
+.ask_select{
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 8px;
+    background-color: #ffffff;
+}
+.ask_desc{
+    display: block;
+    width: 75%;
+    margin: 10px auto;
+    padding: 8px;
+    line-height: 22px;
+    background-color: #ffffff;
+    vertical-align: bottom;
+    height: 200px;
+}
+.ask_btn{
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 8px;
+    background-color: yellow;
+    border: 1px solid #cccccc;
+    outline: none;
+}
+.ask_btn:active{
+    box-shadow: 0 0 5px #cccccc;
+}

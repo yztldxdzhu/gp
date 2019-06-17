@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.UniversityMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.University" >
+    <id column="university_id" property="universityId" jdbcType="INTEGER" />
+    <result column="university_name" property="universityName" jdbcType="VARCHAR" />
+    <result column="university_enname" property="universityEnname" jdbcType="VARCHAR" />
+    <result column="university_location" property="universityLocation" jdbcType="VARCHAR" />
+    <result column="university_logo" property="universityLogo" jdbcType="VARCHAR" />
+    <result column="university_url" property="universityUrl" jdbcType="VARCHAR" />
+    <result column="university_description" property="universityDescription" jdbcType="LONGVARCHAR" />
+    <result column="university_applicationrule" property="universityApplicationrule" jdbcType="LONGVARCHAR" />
+    <result column="university_property" property="universityProperty" jdbcType="VARCHAR" />
+    <result column="university_video" property="universityVideo" jdbcType="VARCHAR" />
+    <result column="university_state" property="universityState" jdbcType="VARCHAR" />
+    <collection property="universitypictureList" ofType="com.thinker.domain.Universitypicture">
+      <id property="universitypictureId" column="universitypicture_id"/>
+      <result property="universitypictureUrl" column="universitypicture_url"/>
+      <result property="universityId" column="university_id"/>
+    </collection>
+    <collection property="collegeList" ofType="com.thinker.domain.College">
+      <id property="collegeId" column="college_id"/>
+      <result property="collegeName" column="college_name"/>
+      <result property="collegeEnname" column="college_enname"/>
+      <collection property="majorList" ofType="com.thinker.domain.Major">
+        <id property="majorId" column="major_id"/>
+        <result property="majorName" column="major_name"/>
+        <result property="majorEnname" column="major_enname"/>
+      </collection>
+    </collection>
+  </resultMap>
+  <resultMap id="CollegeResultMap" type="com.thinker.domain.College" >
+    <id property="collegeId" column="college_id"/>
+    <result property="collegeName" column="college_name"/>
+    <result property="collegeEnname" column="college_enname"/>
+    <collection property="majorList" ofType="com.thinker.domain.Major">
+      <id property="majorId" column="major_id"/>
+      <result property="majorName" column="major_name"/>
+      <result property="majorEnname" column="major_enname"/>
+    </collection>
+  </resultMap>
+  <resultMap id="MajorResultMap" type="com.thinker.domain.Major" >
+    <id property="majorId" column="major_id"/>
+    <result property="majorName" column="major_name"/>
+    <result property="majorEnname" column="major_enname"/>
+  </resultMap>
+  <resultMap id="UniversitypictureResultMap" type="com.thinker.domain.Universitypicture" >
+    <id property="universitypictureId" column="universitypicture_id"/>
+    <result property="universitypictureUrl" column="universitypicture_url"/>
+    <result property="universityId" column="university_id"/>
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from university
+    where university_id = #{universityId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectPicturesByUniversityId" resultMap="UniversitypictureResultMap" parameterType="java.lang.Integer" >
+    select * from universitypicture
+    where university_id = #{universityId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectCollegeByUniversityId" resultMap="CollegeResultMap" parameterType="java.lang.Integer" >
+    select college.*,major.* from universitymajor,college,major
+    where universitymajor.university_id = #{universityId,jdbcType=INTEGER} and universitymajor.college_id = college.college_id and universitymajor.major_id = major.major_id
+  </select>
+
+  <select id="selectMajorByUniversityIdAndCollegeId" resultMap="MajorResultMap" parameterType="java.lang.Integer" >
+    select major.* from universitymajor,major
+    where universitymajor.university_id = #{universityId,jdbcType=INTEGER} and universitymajor.college_id = #{collegeId,jdbcType=INTEGER} and universitymajor.major_id = major.major_id
+  </select>
+
+  <select id="selectAllUniversityByState" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from university where university_state = #{universityState,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from university
+    where university_id = #{universityId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="universityId" >
+    insert into university
+    (university_name,
+    university_enname,
+    university_logo,
+    university_url,
+    university_description,
+    university_applicationrule,
+    university_property,
+    university_state)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.universityName},
+      #{item.universityEnname},
+      #{item.universityLogo},
+      #{item.universityUrl},
+      #{item.universityDescription},
+      #{item.universityApplicationrule},
+      #{item.universityProperty},
+      #{item.universityState})
+    </foreach>
+  </insert>
+
+  <insert id="insertUniversitymajor" parameterType="java.util.List" >
+    insert into universitymajor
+    (university_id,
+    college_id,
+    major_id)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.universityId},
+      #{item.collegeId},
+      #{item.majorId})
+    </foreach>
+  </insert>
+
+  <insert id="addCollegeMajor" parameterType="java.lang.Integer">
+    insert into universitymajor (university_id, college_id,
+      major_id)
+    values (#{universityId,jdbcType=INTEGER}, #{collegeId,jdbcType=INTEGER},
+      #{majorId,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <insert id="insertCollege" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="collegeId">
+    insert into college (college_name) values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.collegeName})
+    </foreach>
+  </insert>
+
+  <insert id="insertMajor" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="majorId">
+    insert into major (major_name) values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.majorName})
+    </foreach>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.thinker.domain.University" >
+    update university
+    set university_name = #{universityName,jdbcType=VARCHAR},
+      university_enname = #{universityEnname,jdbcType=VARCHAR},
+      university_location = #{universityLocation,jdbcType=VARCHAR},
+      university_applicationrule = #{universityApplicationrule,jdbcType=LONGVARCHAR},
+      university_logo = #{universityLogo,jdbcType=VARCHAR},
+      university_url = #{universityUrl,jdbcType=VARCHAR}
+    where university_id = #{universityId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllUniversity" resultMap="BaseResultMap">
+       select university.* from university
+   </select>
+</mapper>

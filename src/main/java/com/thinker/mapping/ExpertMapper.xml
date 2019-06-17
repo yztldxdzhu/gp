@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.ExpertMapper">
+    <resultMap id="BaseResultMap" type="com.thinker.domain.Expert">
+        <id column="expert_id" property="expertId" jdbcType="INTEGER"/>
+        <result column="expert_name" property="expertName" jdbcType="VARCHAR"/>
+        <result column="expert_tel" property="expertTel" jdbcType="VARCHAR"/>
+        <result column="expert_pwd" property="expertPwd" jdbcType="VARCHAR"/>
+        <result column="expert_education" property="expertEducation" jdbcType="VARCHAR"/>
+        <result column="expert_nickname" property="expertNickname" jdbcType="VARCHAR"/>
+        <result column="expert_sex" property="expertSex" jdbcType="INTEGER"/>
+        <result column="expert_age" property="expertAge" jdbcType="INTEGER"/>
+        <result column="expert_email" property="expertEmail" jdbcType="VARCHAR"/>
+        <result column="expert_campus" property="expertCampus" jdbcType="VARCHAR"/>
+        <result column="expert_college" property="expertCollege" jdbcType="VARCHAR"/>
+        <result column="expert_major" property="expertMajor" jdbcType="VARCHAR"/>
+        <result column="expert_location" property="expertLocation" jdbcType="VARCHAR"/>
+        <result column="expert_headpicture" property="expertHeadPicture" jdbcType="VARCHAR"/>
+        <result column="expert_abroadyear" property="expertAbroadyear" jdbcType="INTEGER"/>
+        <result column="expert_abroadexp" property="expertAbroadexp" jdbcType="VARCHAR"/>
+        <result column="expert_status" property="expertStatus" jdbcType="INTEGER"/>
+        <collection property="tagList" ofType="com.thinker.domain.Tag">
+        <id column="tag_id" property="tagId" jdbcType="INTEGER"/>
+        <result column="tag_content" property="tagContent" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <!--根据同一标签查询所有通过审核的顾问-->
+    <select id="selectAllPassedExpertByTag" resultMap="BaseResultMap">
+    SELECT expert.*,tag.* FROM experttag,expert,tag
+    WHERE experttag.expert_id IN (SELECT experttag.expert_id FROM experttag WHERE experttag.tag_id=#{tagId}) AND experttag.tag_id = tag.tag_id and experttag.expert_id = expert.expert_id
+    and expert.expert_status = 1
+  </select>
+
+    <!--查询所有通过审核的顾问信息-->
+    <select id="selectAllPassedExpert" resultMap="BaseResultMap">
+    SELECT expert.*,tag.* FROM expert,experttag,tag where experttag.tag_id = tag.tag_id and experttag.expert_id = expert.expert_id
+    and expert.expert_status = 1
+  </select>
+
+    <!--查询所有顾问信息-->
+    <select id="selectAllExpert" resultMap="BaseResultMap">
+    SELECT expert.*,tag.* FROM expert,experttag,tag where experttag.tag_id = tag.tag_id and experttag.expert_id = expert.expert_id
+  </select>
+
+    <!--根据ID查询某个顾问信息-->
+    <select id="selectExpertById" resultMap="BaseResultMap">
+        SELECT expert.*,tag.* FROM expert,experttag,tag WHERE expert.expert_id=#{expertId} and experttag.tag_id = tag.tag_id and experttag.expert_id = expert.expert_id
+    </select>
+
+    <select id="selectExpertByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select expert.*,tag.* from user,expert,experttag,tag where user.user_id = #{userId,jdbcType=INTEGER} and user.expert_id = expert.expert_id and experttag.tag_id = tag.tag_id and experttag.expert_id = expert.expert_id
+    </select>
+
+    <!--查询专家是否已经被注册-->
+    <select id="selectByExpertTel" resultMap="BaseResultMap">
+    SELECT * FROM expert WHERE expert_tel=#{expertTel}
+  </select>
+
+    <!--插入顾问表-->
+    <insert id="insertExpert" parameterType="com.thinker.domain.Expert" useGeneratedKeys="true" keyProperty="expertId">
+    INSERT INTO expert (expert_tel,expert_name,expert_pwd,expert_status) VALUES (#{expertTel},#{expertName},#{expertPwd},#{expertStatus})
+  </insert>
+    <!--插入顾问类别表-->
+    <insert id="insertExpertTag" parameterType="com.thinker.domain.Experttag">
+        INSERT INTO experttag (expert_id,tag_id) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.expertId},#{item.tagId})
+        </foreach>
+    </insert>
+
+    <!--更新顾问信息-->
+    <update id="updateExpert" parameterType="com.thinker.domain.Expert">
+        UPDATE expert
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="expertName != null">
+                expert_name=#{expertName,jdbcType=VARCHAR},
+            </if>
+            <if test="expertTel !=null">
+                expert_tel=#{expertTel,jdbcType=VARCHAR},
+            </if>
+            <if test="expertPwd !=null">
+                expert_pwd=#{expertPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="expertEducation!=null">
+                expert_education=#{expertEducation,jdbcType=VARCHAR},
+            </if>
+            <if test="expertNickname!=null">
+                expert_nickname=#{expertNickname,jdbcType=VARCHAR},
+            </if>
+            <if test="expertSex!=null">
+                expert_sex=#{expertSex,jdbcType=INTEGER},
+            </if>
+            <if test="expertAge!=null">
+                expert_age=#{expertAge,jdbcType=INTEGER},
+            </if>
+            <if test="expertEmail!=null">
+                expert_email=#{expertEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="expertCampus!=null">
+                expert_campus=#{expertCampus,jdbcType=VARCHAR},
+            </if>
+            <if test="expertCollege!=null">
+                expert_college=#{expertCollege,jdbcType=VARCHAR},
+            </if>
+            <if test="expertMajor!=null">
+                expert_major=#{expertMajor,jdbcType=VARCHAR},
+            </if>
+            <if test="expertLocation != null">
+                expert_location=#{expertLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="expertHeadPicture != null">
+                expert_headpicture=#{expertHeadPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="expertAbroadyear != null">
+                expert_abroadyear=#{expertAbroadyear,jdbcType=INTEGER},
+            </if>
+            <if test="expertAbroadexp != null">
+                expert_abroadexp=#{expertAbroadexp,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        WHERE expert_id=#{expertId}
+    </update>
+
+    <!--审核顾问-->
+    <update id="verifyExpert">
+        UPDATE expert
+        <set>
+            <if test="expertStatus != null">
+                expert_status=#{expertStatus,jdbcType=INTEGER}
+            </if>
+        </set>
+        WHERE expert_id=#{expertId,jdbcType=INTEGER}
+    </update>
+
+    <!--在顾问表里面删除顾问-->
+    <delete id="deleteExpertById" parameterType="java.lang.Integer">
+      DELETE FROM expert WHERE expert_id=#{expertId,jdbcType=INTEGER}
+    </delete>
+    <!--在顾问类别表里面删除顾问信息-->
+    <delete id="deleteExpertByIdInExpertTag" parameterType="java.lang.Integer">
+      DELETE FROM experttag WHERE expert_id=#{expertId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteExpertTagByExpertId" parameterType="java.lang.Integer">
+      DELETE FROM experttag WHERE expert_id=#{expertId,jdbcType=INTEGER}
+    </delete>
+</mapper>

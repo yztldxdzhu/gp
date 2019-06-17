@@ -1,0 +1,571 @@
+.info_right{
+    padding: 10px 0;
+}
+.info_right>p{
+    padding: 10px;
+    border-bottom: 1px solid #cccccc;
+}
+.info_right>p:nth-child(even){
+    background-color: #cccccc;
+}
+.edit_info{
+    background-color: yellow!important;
+    text-align: center;
+    margin: 10px auto 0;
+    width: 20%;
+    border: 1px solid #cccccc;
+    cursor: pointer;
+    transition: ease-in 0.3s;
+}
+.edit_info:hover{
+    background-color: #a22020!important;
+    box-shadow: 0 0 5px #cccccc inset;
+}
+.edit_info>a:hover{
+    color: white;
+    text-decoration: underline;
+}
+.edit_info:active{
+    box-shadow: 0 0 5px #cccccc;
+}
+
+
+.edit_basic_info{
+
+}
+.edit_info_form{
+    background-color: #fff;
+    padding: 1% 5%;
+}
+.edit_info_form>input:focus,.edit_info_getvali:active{
+    box-shadow: 0 0 10px yellow;
+}
+.edit_info_label{
+    width: 11%;
+    text-align: right;
+    margin: 1%;
+    line-height: 340%;
+    display: inline-block;
+}
+.edit_info_base{
+    width: 32%;
+    text-align: center;
+    padding: 1.5%;
+    margin: 1.7% 0;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.edit_info_name{
+    composes: edit_info_base
+}
+.edit_info_sex{
+    display: inline-block;
+    composes: edit_info_base
+}
+.user_sex{
+    margin: 0 15px;
+}
+.edit_info_age{
+    composes: edit_info_base
+}
+.edit_info_nickname{
+    composes: edit_info_base
+}
+.edit_info_avatar{
+    composes: edit_info_base;
+    display: inline-block;
+    position: relative;
+}
+.edit_info_avatar:hover{
+    background-color: yellow;
+}
+.edit_info_avatar>input{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    font-size: 24px;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+}
+.edit_info_tag{
+    display: inline-block;
+    composes: edit_info_base
+}
+.edit_info_tag_each{
+    margin: 0 10px;
+}
+.edit_info_exp{
+    composes: edit_info_base;
+    vertical-align: bottom;
+    text-align: left;
+}
+.edit_info_now_education{
+    composes: edit_info_base
+}
+.edit_info_now_school{
+    composes: edit_info_base
+}
+.edit_info_now_college{
+    composes: edit_info_base
+}
+.edit_info_major{
+    composes: edit_info_base
+}
+.edit_info_now_loc{
+    composes: edit_info_base
+}
+.edit_info_phone{
+    composes: edit_info_base
+}
+.edit_info_email{
+    composes: edit_info_base
+}
+.edit_info_phone{
+     composes: edit_info_base
+ }
+.edit_info_validate{
+    composes: edit_info_base;
+    width: 19%;
+}
+.edit_info_getvali{
+    border: 1px solid #ccc;
+    padding: 1.5%;
+    margin: 0 0 0 1%;
+    cursor: pointer;
+}
+.edit_info_btn_label{
+    composes: edit_info_label;
+    visibility: hidden;
+}
+.edit_info_btn{
+    composes: edit_info_base;
+    background-color: yellow;
+    width: 35%;
+    transition: ease-in 0.3s;
+}
+.not_edit{
+    composes: edit_info_base;
+    width: 35%;
+    transition: ease-in 0.3s;
+}
+.edit_info_btn:hover,.not_edit:hover{
+    background-color: #a22020!important;
+    box-shadow: 0 0 5px #cccccc inset;
+}
+
+
+
+
+
+.apply_progress_part{
+    background-color: #ffffff;
+    width: 60%;
+    margin: 20px auto;
+    border: 1px solid #cccccc;
+}
+.the_header{
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+}
+.the_header>a{
+    font-size: 12px;
+    color: #a22020;
+}
+.apply_each,.message_each,.ques_each{
+    margin: 10px;
+    line-height: 22px;
+    border-bottom: 1px dotted #cccccc;
+}
+.message_each>span{
+    font-weight: 700;
+}
+.message_each a{
+    color: #a22020;
+}
+
+
+.ques_each:after{
+    content: "";
+    display: table;
+    clear: both;
+    box-sizing: border-box;
+}
+.reply_ofthe_ques{
+    float: right;
+}
+
+
+.apply_each>p{
+    width: 43%;
+    display: inline-block;
+    line-height: 25px;
+}
+.delete_application{
+    display: inline-block;
+}
+.delete_application button{
+    padding: 5px 8px;
+    margin: 0 0 8px 8px;
+}
+.apply_progress{
+    cursor: pointer;
+    color: #4c4c46;
+    font-weight: 700;
+}
+
+
+
+
+.progress_body{
+    position: relative;
+    padding: 2em 1rem;
+}
+.progress_body::before{/*那一根竖线*/
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    margin-left: -2px;
+    height: 100%;
+    background: #cccccc;
+}
+.progress_stage{
+    position: relative;
+    margin: 2em 0;
+}
+.progress_stage:after{/*清除浮动*/
+    content: "";
+    display: table;
+    clear: both;
+    box-sizing: border-box;
+}
+.stage_index{
+    position: absolute;
+    top: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+    width: 30px;
+    height: 30px;
+    left: 50%;
+    margin-left: -15px;
+    background-color: #cccccc;
+}
+.stage_index>span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 30px;
+    text-align: center;
+}
+.stage_content{
+    position: relative;
+    border: 1px solid #cccccc;
+    border-radius: 0.25em;
+    padding: 1em;
+    box-shadow: 0 0 3px #cccccc;
+    width: 40%;
+}
+.progress_stage:nth-child(even)>.stage_content{
+    float: right;
+}
+.stage_content>p{
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    left: 122%;
+    right: auto;
+    font-size: 16px;
+    font-weight: 700;
+}
+.progress_stage:nth-child(even)>.stage_content>p{
+    left: auto;
+    right: 122%;
+    text-align: right;
+}
+
+
+
+.the_form_right{
+    width: 30%;
+    margin: 20px auto;
+}
+
+.the_btn{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 4%;
+    margin: 4% 0;
+    border: 1px solid #ccc;
+    outline: none;
+    background-color: #ffffff;
+}
+.the_desc{
+    width: 97%;
+    line-height: 22px;
+    background-color: #ffffff;
+    vertical-align: bottom;
+    height: 134px;
+}
+
+
+
+
+.cart_null{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.cart_null a{
+    color: #a22020!important;
+}
+
+
+
+.users_all,.ques_all{
+    margin: 20px;
+}
+.users_each{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cccccc;
+}
+.users_applys_each{
+    padding-top: 5px;
+    padding-bottom: 8px;
+    border-bottom: 1px dotted #cccccc;
+}
+.users_applys_each>li{
+    width: 25%;
+}
+.ques_list_each{
+    padding: 12px;
+    border-bottom: 1px solid #cccccc;
+}
+.ques_list_each:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.ques_show{
+    display: inline-block;
+    width: 48%;
+}
+.reply_show{
+    display: inline-block;
+    width: 48%;
+    float: right;
+}
+.ques_show>p{
+    display: inline-block;
+    font-size: 14px;
+}
+.ques_show>span{
+    position: absolute;
+    margin-left: -2px;
+    margin-top: 12px;
+    color: #ada9a9;
+}
+.ques_show>button{
+    margin-left: 100px;
+    width: 50px;
+    height: 25px;
+}
+
+.reply_form{
+    width: 25%;
+    margin: 20px auto;
+}
+.reply_content{
+    width: 100%;
+    height: 80px;
+}
+.reply_btn{
+    width: 102%;
+    height: 32px;
+    margin-top: 5px;
+}
+
+
+.show_condi{
+    border-bottom: 1px solid #ccc;
+}
+.show_condi>li{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 10%;
+    padding: 14px 0;
+    text-align: center;
+    cursor: pointer;
+    border-left: 1px solid #ccc;
+}
+.show_condi>li:hover{
+    background-color: #a22020;
+}
+.show_condi>li:active{
+    box-shadow: 0 0 5px yellow;
+}
+.goods_header>li{
+    width: 20%;
+    box-sizing: border-box;
+    padding: 14px 0;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    background-color: rgba(204, 204, 204, 0.45);
+}
+.goods_header input[type="checkbox"]{
+    margin-right: 40%;
+}
+.goods_each{
+    border-bottom: 1px solid #ccc;
+}
+.goods_each:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.goods_each>li{
+    display: inline-block;
+    width: 20%;
+    box-sizing: border-box;
+    padding: 14px 0;
+    text-align: center;
+}
+.goods_each button{
+    width: 50px;
+    height: 25px;
+    margin: 0 5px;
+}
+.goods_each_img{
+    text-align: left!important;
+}
+.goods_each_img>input[type="checkbox"]{
+    float: left;
+    margin-left: 14%;
+    margin-top: 7%;
+}
+.goods_each_img>img{
+    float: left;
+    margin-left: 20%;
+}
+
+
+.order_each{
+    border-bottom: 2px solid #cccccc;
+    padding: 14px;
+    margin-top: 10px;
+}
+.order_number:after{
+    content: "";
+    display: table;
+    clear: both;
+    box-sizing: border-box;
+}
+.delete_order{
+    float: right;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.orderitem_each{
+    border-bottom: 1px dotted #cccccc;
+    background-color: rgba(204, 204, 204, 0.3);
+}
+.orderitem_each>li{
+    display: inline-block;
+    width: 16%;
+    box-sizing: border-box;
+    padding: 14px 0;
+    text-align: center;
+}
+.operation_btn{
+    padding: 5px 8px;
+    margin: 8px;
+}
+
+
+
+
+
+.row_four{
+    text-align: center;
+}
+.row_four:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+}
+.text_count{
+    float: left;
+    margin-top: 8px;
+}
+.sub_btn{
+    float: left;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #cccccc;
+    background-color: rgba(204, 204, 204, 0.5);
+    margin-left: 8px;
+    cursor: pointer;
+}
+.add_btn{
+    float: left;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #cccccc;
+    background-color: rgba(204, 204, 204, 0.5);
+    cursor: pointer;
+}
+.input_count{
+    float: left;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #cccccc;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+}
+.stock_num{
+    float: left;
+    margin-top: 8px;
+}
+
+.cart_op{
+    padding: 20px 0;
+    text-align: center;
+}
+.cart_op:after{
+    content: "";
+    display: table;
+    clear: both;
+    box-sizing: border-box;
+}
+.submit_orders{
+    padding: 10px;
+    border: 1px solid #cccccc;
+    outline: none;
+}
+.submit_orders:hover{
+    background-color: yellow;
+}
+.submit_orders:active{
+    box-shadow: 0 0 5px #ccc;
+}
+.delete_batch{
+    float: right;
+    margin-right: 50px;
+    padding: 6px;
+}

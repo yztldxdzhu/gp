@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd"
+       default-lazy-init="true">
+
+    <!--SpringMVC中全局的设置,编码,读取表单,Json传输-->
+    <mvc:annotation-driven conversion-service="conversionService" >
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg name="defaultCharset" value="UTF-8"/>
+            </bean>
+            <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                                <!--<constructor-arg type="java.lang.String" value="MM-dd"/>-->
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+
+
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+    <context:component-scan base-package="com.thinker.controller"/>
+
+
+
+
+    <!--对静态资源的访问-->
+    <!--<mvc:resources mapping="/img/**" location="/information/img/"/>-->
+    <!--<mvc:resources mapping="/css/**" location="/information/css/"/>
+    <mvc:resources mapping="/js/**" location="/information/js/"/>
+    <mvc:resources mapping="/pages/**" location="/information/pages/"/>
+    <mvc:resources mapping="/image/cache/**" location="/image/cache/"/>
+    <mvc:resources mapping="/image/**" location="/information/image/"/>
+    <mvc:resources mapping="/lib/**" location="/information/lib/"/>
+    <mvc:resources mapping="/SUI-Mobile-dev/**" location="/information/SUI-Mobile-dev/"/>-->
+    <!--添加默认处理静态资源的配置,spring会用默认的Servlet来响应静态文件-->
+    <!--<mvc:default-servlet-handler/>-->
+    <mvc:resources mapping="/public/**" location="/public/"/>
+    <mvc:default-servlet-handler/>
+
+
+    <!--登录拦截器-->
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--&lt;!&ndash;需要拦截的请求&ndash;&gt;-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<bean id="Interceptor" class="com.thinker.interceptor.LoginInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+
+    <!-- 配置velocity引擎 -->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <!-- 模板存放的路径 -->
+        <property name="resourceLoaderPath" value="/modules/"/>
+        <!-- Velocity配置文件 -->
+        <property name="configLocation" value="classpath:velocity.properties"/>
+    </bean>
+
+    <!-- 自定义参数绑定 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!-- 转换器 -->
+        <property name="converters">
+            <!-- 日期类型转换 -->
+            <bean class="com.thinker.util.DateConverter"/>
+        </property>
+    </bean>
+
+    <!-- 配置视图的显示 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <!--视图文件的前缀,即存放路径-->
+        <!--<property name="prefix" value="/"/>-->
+        <!-- 视图文件的后缀名 -->
+        <property name="suffix" value=".html"/>
+        <!--日期函数名称-->
+        <property name="dateToolAttribute" value="date"/>
+        <!--数字函数名称-->
+        <property name="numberToolAttribute" value="number"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <!--是否使用spring对宏定义的支持-->
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <!--是否开放request属性-->
+        <property name="exposeRequestAttributes" value="true"/>
+        <!--request属性引用名称-->
+        <property name="requestContextAttribute" value="rc"/>
+
+        <!--&lt;!&ndash;指定默认layout文件&ndash;&gt;-->
+        <!--<property name="layoutUrl" value="layout/default.vm"/>-->
+    </bean>
+
+
+
+    <!--自定义异常处理机制-->
+    <!--<bean class="com.forum.exception.handle.ExceptionResolver"/>-->
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+</beans>

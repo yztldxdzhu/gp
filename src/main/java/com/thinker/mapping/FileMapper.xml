@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.FileMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.File" >
+    <id column="file_id" property="fileId" jdbcType="INTEGER" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="file_ispassed" property="fileIspassed" jdbcType="INTEGER" />
+    <result column="university_applicationrule" property="universityApplicationrule" jdbcType="LONGVARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="INTEGER" />
+    <result column="application_id" property="applicationId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectAllFile" resultMap="BaseResultMap" >
+    select file.*,university.university_applicationrule from file, university,application where file.application_id = application.application_id and application.application_campus = university.university_name
+  </select>
+
+  <select id="selectFileByFileId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from file where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUserFileByUserId" resultMap="BaseResultMap" >
+    select file.* from file,application where file.application_id = application.application_id and application.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteFileById" parameterType="java.lang.Integer" >
+    delete from file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertFile" parameterType="com.thinker.domain.File" >
+    insert into file (file_url, file_type, file_ispassed, application_id)
+    values (#{fileUrl,jdbcType=INTEGER}, #{fileType,jdbcType=INTEGER}, #{fileIspassed,jdbcType=INTEGER}, #{applicationId,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertUniversityPicture" >
+    insert into universitypicture (universitypicture_url, university_id)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.universitypictureUrl},#{item.universityId})
+    </foreach>
+  </insert>
+
+  <update id="modifyFile" parameterType="com.thinker.domain.File" >
+    update file
+    set file_ispassed = #{fileIspassed,jdbcType=INTEGER},
+      file_url = #{fileUrl,jdbcType=VARCHAR}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+
+  <update id="insertUniversityVideo" >
+    update university
+    set university_video = #{videoUrl,jdbcType=VARCHAR}
+    where university_id = #{universityId,jdbcType=INTEGER}
+  </update>
+
+  <update id="modifyFileIspassed" parameterType="java.lang.Integer" >
+    update file
+    set file_ispassed = #{fileIspassed,jdbcType=INTEGER}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

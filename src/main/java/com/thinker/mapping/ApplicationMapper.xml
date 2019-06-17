@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.ApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.thinker.domain.Application" >
+    <id column="application_id" property="applicationId" jdbcType="INTEGER" />
+    <result column="application_campus" property="applicationCampus" jdbcType="VARCHAR" />
+    <result column="application_college" property="applicationCollege" jdbcType="VARCHAR" />
+    <result column="application_location" property="applicationLocation" jdbcType="VARCHAR" />
+    <result column="application_major" property="applicationMajor" jdbcType="VARCHAR" />
+    <result column="application_successreply" property="applicationSuccessreply" jdbcType="VARCHAR" />
+    <result column="application_target" property="applicationTarget" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="application_time" property="applicationTime" jdbcType="TIMESTAMP" />
+    <result column="application_readingtime" property="applicationReadingTime" jdbcType="TIMESTAMP" />
+    <result column="application_verifytime" property="applicationVerifytime" jdbcType="TIMESTAMP" />
+    <result column="application_reason" property="applicationReason" jdbcType="LONGVARCHAR" />
+    <result column="application_reasonnotpass" property="applicationReasonnotpass" jdbcType="LONGVARCHAR" />
+    <result column="ispassed" property="isPassed" jdbcType="INTEGER" />
+    <collection property="schedule" ofType="com.thinker.domain.Schedule">
+      <id property="scheduleId" column="schedule_id" jdbcType="INTEGER" />
+      <result column="schedule_status" property="scheduleStatus" jdbcType="INTEGER" />
+      <result column="application_id" property="applicationId" jdbcType="INTEGER" />
+      <result column="schedule_changetime" property="scheduleChangetime" jdbcType="TIMESTAMP" />
+    </collection>
+  </resultMap>
+
+  <select id="selectAllApplication" resultMap="BaseResultMap" >
+    select * from application ORDER BY application_verifytime DESC , application_time DESC
+  </select>
+
+  <select id="selectAllSuccessApplication" resultMap="BaseResultMap" >
+    select application.* from application,schedule
+    where application.application_id = schedule.application_id and schedule.schedule_status = 5
+  </select>
+
+  <select id="selectAllSuccessApplicationByTarget" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select application.* from application,file
+    where file.application_id = application.application_id and file.file_type = 3 and file.file_ispassed = 2 and application.application_target = #{applicationTarget,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllSuccessApplicationByLocation" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select application.* from application,file
+    where file.application_id = application.application_id and file.file_type = 3 and file.file_ispassed = 2 and application.application_location = #{applicationLocation,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findApplicationMessageByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select application.* from application,user
+    where user.user_id = #{userId,jdbcType=INTEGER} and application.user_id = user.user_id
+  </select>
+
+  <select id="findUserApplicationByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from application,schedule
+    where application.user_id = #{userId,jdbcType=INTEGER} and application.application_id = schedule.application_id
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from application
+    where application_id = #{applicationId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertApplication" parameterType="com.thinker.domain.Application" useGeneratedKeys="true" keyProperty="applicationId" >
+    insert into application (
+      application_campus, application_major,application_college, application_target,
+      user_id, application_time, application_readingtime, application_location,
+      ispassed, application_reason, application_successreply,
+      application_reasonnotpass)
+    values (
+      #{applicationCampus,jdbcType=VARCHAR}, #{applicationMajor,jdbcType=VARCHAR}, #{applicationCollege,jdbcType=VARCHAR}, #{applicationTarget,jdbcType=VARCHAR},
+      #{userId,jdbcType=INTEGER}, #{applicationTime,jdbcType=TIMESTAMP}, #{applicationReadingTime,jdbcType=TIMESTAMP}, #{applicationLocation,jdbcType=VARCHAR},
+      #{isPassed,jdbcType=INTEGER}, #{applicationReason,jdbcType=LONGVARCHAR}, #{applicationSuccessreply,jdbcType=VARCHAR},
+      #{applicationReasonnotpass,jdbcType=LONGVARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.thinker.domain.Application" >
+    update application
+    set
+      application_campus = #{applicationCampus,jdbcType=VARCHAR},
+      ispassed = #{isPassed,jdbcType=INTEGER},
+      application_major = #{applicationMajor,jdbcType=VARCHAR},
+      application_target = #{applicationTarget,jdbcType=VARCHAR},
+      application_college = #{applicationCollege,jdbcType=VARCHAR},
+      application_location = #{applicationLocation,jdbcType=VARCHAR},
+      application_readingtime = #{applicationReadingTime,jdbcType=DATE},
+      application_time = #{applicationTime,jdbcType=TIMESTAMP}
+    where application_id = #{applicationId,jdbcType=INTEGER}
+  </update>
+
+  <update id="modifyIspassed" >
+    update application
+    set
+      ispassed = #{ispassed,jdbcType=INTEGER},
+      application_verifytime = #{applicationVerifytime,jdbcType=TIMESTAMP}
+    where application_id = #{applicationId,jdbcType=INTEGER}
+  </update>
+</mapper>

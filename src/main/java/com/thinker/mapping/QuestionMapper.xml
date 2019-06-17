@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinker.mapper.QuestionMapper">
+    <resultMap id="Base_getQuestion" type="com.thinker.domain.Question">
+        <id property="questionId" column="question_id"/>
+        <id property="questionIspassed" column="question_ispassed"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="questionTime" column="question_time"/>
+        <result property="questionContent" column="question_content"/>
+        <result property="userId" column="user_id"/>
+        <collection property="replyList" ofType="com.thinker.domain.Reply">
+            <id property="replyId" column="reply_id"/>
+            <result property="replyContent" column="reply_content"/>
+            <result property="questionId" column="question_id"/>
+            <result property="expertId" column="expert_id"/>
+            <result property="replyTime" column="reply_time"/>
+        </collection>
+    </resultMap>
+    <resultMap id="Base_getQuestion3" type="com.thinker.domain.Question">
+        <id property="questionId" column="question_id"/>
+        <id property="questionIspassed" column="question_ispassed"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="questionTime" column="question_time"/>
+        <result property="questionContent" column="question_content"/>
+        <result property="userId" column="user_id"/>
+        <collection property="questionUser" ofType="com.thinker.dto.QuestionUser">
+            <id property="userId" column="user_id"/>
+            <result property="userName" column="user_name"/>
+        </collection>
+    </resultMap>
+
+    <!--向数据库里面插入问题-->
+    <insert id="addQuestion" parameterType="com.thinker.domain.Question">
+        INSERT INTO question(user_id, tag_id, question_content,question_ispassed, question_time) VALUES (#{userId},#{tagId},#{questionContent},#{questionIspassed},#{questionTime})
+    </insert>
+
+    <!--展示所咨询的问题-->
+    <select id="getQuestionByUserId" resultMap="Base_getQuestion">
+        SELECT * FROM question WHERE user_id=#{userId} order by question_time DESC
+    </select>
+
+    <!--删除问题-->
+    <delete id="removeQuestion" >
+      DELETE  FROM question WHERE question_id=#{questionId}
+    </delete>
+
+    <!--查看同一标签所有问题-->
+    <select id="getAllQuestionByTagId" resultMap="Base_getQuestion3">
+        SELECT question.*,user.user_name FROM question,user WHERE  question.tag_id=#{tagId} AND question.user_id = user.user_id and question.question_ispassed = 1 order by question.question_time DESC
+    </select>
+
+    <!--查看所有问题-->
+    <select id="getAllQuestion" resultMap="Base_getQuestion3">
+        SELECT question.*,user.user_name FROM question,user where question.user_id = user.user_id order by question.question_time DESC
+    </select>
+
+    <!--查看十个最新问题-->
+    <select id="getNewQuestion" resultMap="Base_getQuestion3">
+        SELECT question.*,user.user_name FROM question,user where question.user_id = user.user_id  order by question.question_time DESC limit 0,10
+    </select>
+
+    <!--查看所有审核通过的问题-->
+    <select id="getAllPassedQuestion" resultMap="Base_getQuestion3">
+        SELECT question.*,user.user_name FROM question,user where question.user_id = user.user_id and question.question_ispassed = 1 order by question.question_time DESC
+    </select>
+
+    <!--审核问题-->
+    <update id="modifyQuestionIspassedByQuestionId" parameterType="java.lang.Integer">
+        update question set question_ispassed = #{questionIspassed} where question_id = #{questionId}
+    </update>
+</mapper>
